@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="900.0" prefHeight="300.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainFormController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="900.0" prefHeight="300.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainScreenController">
    <children>
       <Label layoutX="27.0" layoutY="14.0" prefHeight="18.0" prefWidth="211.0" text="Inventory Management System">
          <font>
@@ -44,7 +44,7 @@
                               <Insets bottom="5.0" left="15.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField fx:id="txtPartSearch" maxWidth="-Infinity" prefWidth="150.0" promptText="Search by Part ID or Name" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <TextField fx:id="txtSearchParts" maxWidth="-Infinity" onKeyPressed="#searchPartKeyPressed" prefWidth="150.0" promptText="Search by Part ID or Name" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets bottom="7.0" />
                            </GridPane.margin>
@@ -53,10 +53,10 @@
                   </GridPane>
                   <TableView fx:id="tvParts" prefHeight="200.0" prefWidth="200.0">
                     <columns>
-                      <TableColumn prefWidth="47.2000116109848" text="Part ID" />
-                      <TableColumn prefWidth="124.79995346069336" text="Part Name" />
-                        <TableColumn prefWidth="92.79994201660156" text="Inventory Level" />
-                        <TableColumn prefWidth="124.79998168945315" text="Price/ Cost per Unit" />
+                      <TableColumn fx:id="colPartId" prefWidth="47.2000116109848" text="Part ID" />
+                      <TableColumn fx:id="colPartName" prefWidth="124.79995346069336" text="Part Name" />
+                        <TableColumn fx:id="colPartInventoryLevel" prefWidth="92.79994201660156" text="Inventory Level" />
+                        <TableColumn fx:id="colPartPerUnitCost" prefWidth="124.79998168945315" text="Price/ Cost per Unit" />
                     </columns>
                      <VBox.margin>
                         <Insets left="10.0" right="5.0" />
@@ -64,15 +64,15 @@
                   </TableView>
                   <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="btnAddParts" alignment="CENTER_RIGHT" mnemonicParsing="false" text="Add">
+                        <Button fx:id="btnAddPart" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#addPartButtonAction" text="Add">
                            <HBox.margin>
                               <Insets right="10.0" top="5.0" />
                            </HBox.margin></Button>
-                        <Button fx:id="btnModifyParts" mnemonicParsing="false" text="Modifty">
+                        <Button fx:id="btnModifyParts" mnemonicParsing="false" onAction="#modifyPartButtonAction" text="Modify">
                            <HBox.margin>
                               <Insets right="15.0" top="5.0" />
                            </HBox.margin></Button>
-                        <Button fx:id="btnDeleteParts" mnemonicParsing="false" text="Delete">
+                        <Button fx:id="btnDeleteParts" mnemonicParsing="false" onAction="#deletePartButtonAction" text="Delete">
                            <HBox.margin>
                               <Insets top="5.0" />
                            </HBox.margin></Button>
@@ -111,7 +111,7 @@
                                        <Insets bottom="5.0" left="15.0" />
                                    </GridPane.margin>
                                </Label>
-                               <TextField fx:id="txtProductSearch" maxWidth="-Infinity" prefWidth="150.0" promptText="Search by Part ID or Name" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                               <TextField fx:id="txtSearchProducts" maxWidth="-Infinity" onKeyPressed="#searchProductKeyPressed" prefWidth="150.0" promptText="Search by Product ID or Name" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets bottom="7.0" />
                            </GridPane.margin>
@@ -120,10 +120,10 @@
                        </GridPane>
                        <TableView fx:id="tvProducts" prefHeight="200.0" prefWidth="200.0">
                            <columns>
-                               <TableColumn prefWidth="65.60006272792816" text="Product ID" />
-                               <TableColumn prefWidth="103.20001983642578" text="Product Name" />
-                               <TableColumn prefWidth="96.80000305175781" text="Inventory Level" />
-                               <TableColumn prefWidth="124.79998168945315" text="Price/ Cost per Unit" />
+                               <TableColumn fx:id="colProductId" prefWidth="65.60006272792816" text="Product ID" />
+                               <TableColumn fx:id="colProductName" prefWidth="103.20001983642578" text="Product Name" />
+                               <TableColumn fx:id="colProductInventoryLevel" prefWidth="96.80000305175781" text="Inventory Level" />
+                               <TableColumn fx:id="colProductPerUnitCost" prefWidth="124.79998168945315" text="Price/ Cost per Unit" />
                            </columns>
                            <VBox.margin>
                                <Insets left="10.0" right="5.0" />
@@ -131,15 +131,15 @@
                        </TableView>
                        <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                               <Button fx:id="btnAddProducts" alignment="CENTER_RIGHT" mnemonicParsing="false" text="Add">
+                               <Button fx:id="btnAddProduct" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#addProductButtonAction" text="Add">
                                    <HBox.margin>
                                        <Insets right="10.0" top="5.0" />
                                    </HBox.margin></Button>
-                               <Button fx:id="btnModifyProducts" mnemonicParsing="false" text="Modifty">
+                               <Button fx:id="btnModifyProduct" mnemonicParsing="false" text="Modify">
                                    <HBox.margin>
                                        <Insets right="15.0" top="5.0" />
                                    </HBox.margin></Button>
-                               <Button fx:id="btnDeleteProducts" mnemonicParsing="false" text="Delete">
+                               <Button fx:id="btnDeleteProduct" mnemonicParsing="false" onAction="#deleteProductButtonAction" text="Delete">
                                    <HBox.margin>
                                        <Insets top="5.0" />
                                    </HBox.margin></Button>
@@ -155,6 +155,6 @@
                </VBox>
            </top>
        </BorderPane>
-      <Button fx:id="btnExit" layoutX="786.0" layoutY="261.0" mnemonicParsing="false" onAction="#exitButton" text="Exit" />
+      <Button fx:id="btnExit" layoutX="786.0" layoutY="261.0" mnemonicParsing="false" onAction="#exitButtonAction" text="Exit" />
    </children>
 </AnchorPane>
