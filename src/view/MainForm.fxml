@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="900.0" prefHeight="300.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainScreenController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="900.0" prefHeight="300.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainFormController">
    <children>
       <Label layoutX="27.0" layoutY="14.0" prefHeight="18.0" prefWidth="211.0" text="Inventory Management System">
          <font>
@@ -68,11 +68,11 @@
                            <HBox.margin>
                               <Insets right="10.0" top="5.0" />
                            </HBox.margin></Button>
-                        <Button fx:id="btnModifyParts" mnemonicParsing="false" onAction="#modifyPartButtonAction" text="Modify">
+                        <Button fx:id="btnModifyPart" mnemonicParsing="false" onAction="#modifyPartButtonAction" text="Modify">
                            <HBox.margin>
                               <Insets right="15.0" top="5.0" />
                            </HBox.margin></Button>
-                        <Button fx:id="btnDeleteParts" mnemonicParsing="false" onAction="#deletePartButtonAction" text="Delete">
+                        <Button fx:id="btnDeletePart" mnemonicParsing="false" onAction="#deletePartButtonAction" text="Delete">
                            <HBox.margin>
                               <Insets top="5.0" />
                            </HBox.margin></Button>
@@ -135,7 +135,7 @@
                                    <HBox.margin>
                                        <Insets right="10.0" top="5.0" />
                                    </HBox.margin></Button>
-                               <Button fx:id="btnModifyProduct" mnemonicParsing="false" text="Modify">
+                               <Button fx:id="btnModifyProduct" mnemonicParsing="false" onAction="#modifyProductButtonAction" text="Modify">
                                    <HBox.margin>
                                        <Insets right="15.0" top="5.0" />
                                    </HBox.margin></Button>
