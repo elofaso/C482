@@ -41,7 +41,7 @@ public class InHouse extends Part{
     /**
      * Setter for Machine ID
      *
-     * @param machineId
+     * @param machineId Machine ID
      */
     public void setMachineId(int machineId) {
         this.machineId = machineId;

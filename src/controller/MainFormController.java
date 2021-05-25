@@ -129,10 +129,19 @@ public class MainFormController implements Initializable {
     void deleteProductButtonAction(ActionEvent event) {
         Product selectedProduct = tvProducts.getSelectionModel().getSelectedItem();
 
+        if (!selectedProduct.getAllAssociatedParts().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Products");
+            alert.setHeaderText("DELETE");
+            alert.setHeaderText("Product has associated parts; cannot be deleted.");
+            alert.showAndWait();
+            return;
+        }
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Products");
         alert.setHeaderText("DELETE");
-        alert.setContentText("Do you want to delete this product");
+        alert.setContentText("Do you want to delete this product?");
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.OK) {
