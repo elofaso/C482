@@ -238,6 +238,14 @@ public class MainFormController implements Initializable {
     void modifyPartButtonAction(ActionEvent event) throws IOException {
         int selectedPartIndex = tvParts.getSelectionModel().getSelectedIndex();
         Part selectedPart = tvParts.getSelectionModel().getSelectedItem();
+        if (selectedPart == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Parts");
+            alert.setHeaderText("MODIFY");
+            alert.setHeaderText("No part selected.");
+            alert.showAndWait();
+            return;
+        }
         ModifyPartController.setPart(selectedPartIndex, selectedPart);
 
         loadScene(event, "../view/ModifyPartForm.fxml");
@@ -254,6 +262,14 @@ public class MainFormController implements Initializable {
     void modifyProductButtonAction(ActionEvent event) throws IOException {
         int selectedProductIndex = tvProducts.getSelectionModel().getSelectedIndex();
         Product selectedProduct = tvProducts.getSelectionModel().getSelectedItem();
+        if (selectedProduct == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Products");
+            alert.setHeaderText("MODIFY");
+            alert.setHeaderText("No product selected.");
+            alert.showAndWait();
+            return;
+        }
         ModifyProductController.setProduct(selectedProductIndex, selectedProduct);
 
         loadScene(event, "../view/ModifyProductForm.fxml");
