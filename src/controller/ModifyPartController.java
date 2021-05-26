@@ -7,11 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.InHouse;
 import model.Inventory;
@@ -22,6 +18,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/***
+ * Controller class which provides control logic for the Modify Part Form.
+ */
 public class ModifyPartController implements Initializable {
 
     /***
@@ -117,7 +116,7 @@ public class ModifyPartController implements Initializable {
      * @param event Passed-through action event.
      * @throws IOException Exception from FXMLLoader.
      */
-    private void returnToMainScreen(ActionEvent event) throws IOException {
+    private void returnToMainForm(ActionEvent event) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("../view/MainForm.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -133,7 +132,7 @@ public class ModifyPartController implements Initializable {
      */
     @FXML
     void cancelButtonAction(ActionEvent event) throws IOException {
-        returnToMainScreen(event);
+        returnToMainForm(event);
     }
 
     /***
@@ -142,23 +141,51 @@ public class ModifyPartController implements Initializable {
      * @param event Action event.
      * @throws IOException Exception from FXMLLoader.
      */
-    @FXML void saveButtonAction(ActionEvent event) throws IOException {
-        int id = part.getId();
-        String name = txtName.getText();
-        int inventory = Integer.parseInt(txtInventory.getText());
-        double price = Double.parseDouble(txtPrice.getText());
-        int max = Integer.parseInt(txtMax.getText());
-        int min = Integer.parseInt(txtMin.getText());
-        String source = txtSource.getText();
+    @FXML
+    void saveButtonAction(ActionEvent event) throws IOException {
+        try {
+            int id = Integer.parseInt(txtId.getText());
+            String name = txtName.getText();
+            int inventory = Integer.parseInt(txtInventory.getText());
+            double price = Double.parseDouble(txtPrice.getText());
+            int max = Integer.parseInt(txtMax.getText());
+            int min = Integer.parseInt(txtMin.getText());
+            String source = txtSource.getText();
 
-        Part updatedPart;
-        if (inHouse) {
-            updatedPart = new InHouse(id, name, price, inventory, min, max, Integer.parseInt(source));
-        } else {
-            updatedPart = new Outsourced(id, name, price, inventory, min, max, source);
+            if (!(min<max)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Parts");
+                alert.setHeaderText("ADD");
+                alert.setHeaderText("Min must be less than max.");
+                alert.showAndWait();
+                return;
+            }
+
+            if (!(min<=inventory && inventory <=max)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Parts");
+                alert.setHeaderText("ADD");
+                alert.setHeaderText("Inventory must be between min and max.");
+                alert.showAndWait();
+                return;
+            }
+
+            Part updatedPart;
+            if (inHouse) {
+                updatedPart = new InHouse(id, name, price, inventory, min, max, Integer.parseInt(source));
+            } else {
+                updatedPart = new Outsourced(id, name, price, inventory, min, max, source);
+            }
+            Inventory.updatePart(partIndex, updatedPart);
+            returnToMainForm(event);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Parts");
+            alert.setHeaderText("ADD");
+            alert.setHeaderText("Invalid input type or empty field.");
+            alert.showAndWait();
+
         }
-        Inventory.updatePart(partIndex, updatedPart);
-        returnToMainScreen(event);
     }
 
     /***

@@ -11,6 +11,8 @@ import model.*;
   *
   * @author Eric Lofaso
   *
+  *  FUTURE ENHANCEMENT Showing available parts as available parts minus parts associated with product inventory.
+  *
   */
 public class Main extends Application {
 

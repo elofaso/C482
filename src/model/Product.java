@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * Product
+ * Models a Product
  *
  * @author Eric Lofaso
  */

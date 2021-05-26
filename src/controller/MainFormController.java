@@ -100,6 +100,9 @@ public class MainFormController implements Initializable {
     private TableColumn<Product, Double> colProductPerUnitCost;
 
     /***
+     * RUNTIME ERROR I had a logic error of not refreshing tvParts after part deletion.
+     *  I corrected this by running tvParts.setItems(Inventory.getAllParts()) after deletion.
+     *
      * Button action to delete part.
      *
      * @param event Action event.

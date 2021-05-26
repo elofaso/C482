@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -183,21 +184,47 @@ public class AddProductController implements Initializable {
      * @throws IOException Exception from FXMLLoader.
      */
     @FXML void saveButtonAction(ActionEvent event) throws IOException {
-        int id = Inventory.getProductId();
-        String name = txtProductName.getText();
-        int inventory = Integer.parseInt(txtProductInventory.getText());
-        double price = Double.parseDouble(txtProductPrice.getText());
-        int max = Integer.parseInt(txtProductMax.getText());
-        int min = Integer.parseInt(txtProductMin.getText());
+        try {
+            int id = Inventory.getProductId();
+            String name = txtProductName.getText();
+            int inventory = Integer.parseInt(txtProductInventory.getText());
+            double price = Double.parseDouble(txtProductPrice.getText());
+            int max = Integer.parseInt(txtProductMax.getText());
+            int min = Integer.parseInt(txtProductMin.getText());
 
-        Product product = new Product(id, name, price, inventory, min, max);
+            if (!(min<max)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Products");
+                alert.setHeaderText("ADD");
+                alert.setHeaderText("Min must be less than max.");
+                alert.showAndWait();
+                return;
+            }
 
-        for (Part part : associatedParts) {
-            product.addAssociatedPart(part);
+            if (!(min<=inventory && inventory <=max)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Products");
+                alert.setHeaderText("ADD");
+                alert.setHeaderText("Inventory must be between min and max.");
+                alert.showAndWait();
+                return;
+            }
+
+            Product product = new Product(id, name, price, inventory, min, max);
+
+            for (Part part : associatedParts) {
+                product.addAssociatedPart(part);
+            }
+
+            Inventory.addProduct(product);
+            returnToMainForm(event);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Products");
+            alert.setHeaderText("ADD");
+            alert.setHeaderText("Invalid input type or empty field.");
+            alert.showAndWait();
         }
-
-        Inventory.addProduct(product);
-        returnToMainForm(event);
     }
 
     /***
