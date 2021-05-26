@@ -5,13 +5,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.*;
 
- /** This Inventory Management program provides a system for
+ /***
+  * This Inventory Management program provides a system for
   * managing an inventory of parts and products built from
   * those parts.
   *
-  * @author Eric Lofaso
+  * FUTURE ENHANCEMENT Showing available parts as available parts minus parts associated with product inventory.
   *
-  *  FUTURE ENHANCEMENT Showing available parts as available parts minus parts associated with product inventory.
+  * @author Eric Lofaso
   *
   */
 public class Main extends Application {

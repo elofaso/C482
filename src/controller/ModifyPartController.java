@@ -139,10 +139,9 @@ public class ModifyPartController implements Initializable {
      * Save Button action.
      *
      * @param event Action event.
-     * @throws IOException Exception from FXMLLoader.
      */
     @FXML
-    void saveButtonAction(ActionEvent event) throws IOException {
+    void saveButtonAction(ActionEvent event)  {
         try {
             int id = Integer.parseInt(txtId.getText());
             String name = txtName.getText();

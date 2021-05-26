@@ -151,6 +151,14 @@ public class AddProductController implements Initializable {
     @FXML
     void addPartButtonAction(ActionEvent event) {
         Part selectedPart = tvAllParts.getSelectionModel().getSelectedItem();
+        if (selectedPart == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Parts");
+            alert.setHeaderText("ADD");
+            alert.setHeaderText("No part selected.");
+            alert.showAndWait();
+            return;
+        }
         associatedParts.add(selectedPart);
         tvAssociatedParts.setItems(associatedParts);
     }
@@ -181,9 +189,8 @@ public class AddProductController implements Initializable {
      * Save Button action.
      *
      * @param event Action event.
-     * @throws IOException Exception from FXMLLoader.
      */
-    @FXML void saveButtonAction(ActionEvent event) throws IOException {
+    @FXML void saveButtonAction(ActionEvent event) {
         try {
             int id = Inventory.getProductId();
             String name = txtProductName.getText();

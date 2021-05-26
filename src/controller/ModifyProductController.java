@@ -156,6 +156,14 @@ public class ModifyProductController implements Initializable {
     @FXML
     void addPartButtonAction(ActionEvent event) {
         Part selectedPart = tvAllParts.getSelectionModel().getSelectedItem();
+        if (selectedPart == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Parts");
+            alert.setHeaderText("ADD");
+            alert.setHeaderText("No part selected.");
+            alert.showAndWait();
+            return;
+        }
         associatedParts.add(selectedPart);
         tvAssociatedParts.setItems(associatedParts);
     }
@@ -186,9 +194,8 @@ public class ModifyProductController implements Initializable {
      * Save Button action.
      *
      * @param event Action event.
-     * @throws IOException Exception from FXMLLoader.
      */
-    @FXML void saveButtonAction(ActionEvent event) throws IOException {
+    @FXML void saveButtonAction(ActionEvent event) {
         try {
             int id = Integer.parseInt(txtProductId.getText());
             String name = txtProductName.getText();
@@ -258,12 +265,16 @@ public class ModifyProductController implements Initializable {
     private static int productIndex = 0;
 
     /***
-     * Updates Part with new Part object.
-     *
-     * @param index Index of Part in list.
-     * @param updatedPart Part object.
+     * Product object
      */
     private static Product product = null;
+
+    /***
+     * Updates Product with new Part object.
+     *
+     * @param index Index of Product in list.
+     * @param updatedProduct Product object.
+     */
     public static void setProduct(int index, Product updatedProduct) {
         productIndex = index;
         product = updatedProduct;
