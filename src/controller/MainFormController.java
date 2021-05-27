@@ -109,7 +109,16 @@ public class MainFormController implements Initializable {
      */
     @FXML
     void deletePartButtonAction(ActionEvent event) {
+        int selectedPartIndex = tvParts.getSelectionModel().getSelectedIndex();
         Part selectedPart = tvParts.getSelectionModel().getSelectedItem();
+        if (selectedPart == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Parts");
+            alert.setHeaderText("DELETE");
+            alert.setHeaderText("No part selected.");
+            alert.showAndWait();
+            return;
+        }
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Parts");
@@ -130,8 +139,16 @@ public class MainFormController implements Initializable {
      */
     @FXML
     void deleteProductButtonAction(ActionEvent event) {
+        int selectedProductIndex = tvProducts.getSelectionModel().getSelectedIndex();
         Product selectedProduct = tvProducts.getSelectionModel().getSelectedItem();
-
+        if (selectedProduct == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Products");
+            alert.setHeaderText("DELETE");
+            alert.setHeaderText("No product selected.");
+            alert.showAndWait();
+            return;
+        }
         if (!selectedProduct.getAllAssociatedParts().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Products");

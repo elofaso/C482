@@ -187,6 +187,14 @@ public class ModifyProductController implements Initializable {
     @FXML
     void removePartButtonAction(ActionEvent event) {
         Part selectedPart = tvAssociatedParts.getSelectionModel().getSelectedItem();
+        if (selectedPart == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Parts");
+            alert.setHeaderText("REMOVE");
+            alert.setHeaderText("No part selected.");
+            alert.showAndWait();
+            return;
+        }
         associatedParts.remove(selectedPart);
     }
 
