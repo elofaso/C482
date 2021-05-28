@@ -196,6 +196,7 @@ public class ModifyProductController implements Initializable {
             return;
         }
         associatedParts.remove(selectedPart);
+        tvAssociatedParts.setItems(associatedParts);
     }
 
     /***
