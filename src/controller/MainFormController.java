@@ -123,7 +123,7 @@ public class MainFormController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Parts");
         alert.setHeaderText("DELETE");
-        alert.setContentText("Do you want to delete this part");
+        alert.setContentText("Do you want to delete this part?");
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.OK) {

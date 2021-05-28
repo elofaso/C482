@@ -146,7 +146,7 @@ public class ModifyProductController implements Initializable {
     /***
      * Associated Pars list.
      */
-    private final ObservableList<Part> associatedParts = FXCollections.observableArrayList();
+    private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
 
     /***
      * Add Part Button action.
@@ -195,8 +195,17 @@ public class ModifyProductController implements Initializable {
             alert.showAndWait();
             return;
         }
-        associatedParts.remove(selectedPart);
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Parts");
+        alert.setHeaderText("REMOVE");
+        alert.setContentText("Do you want to remove this associated part?");
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK) {
+            associatedParts.remove(selectedPart);
+        }
         tvAssociatedParts.setItems(associatedParts);
+
     }
 
     /***
@@ -303,7 +312,8 @@ public class ModifyProductController implements Initializable {
         colAllPartsInventory.setCellValueFactory(new PropertyValueFactory<>("stock"));
         colAllPartsPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        tvAssociatedParts.setItems(product.getAllAssociatedParts());
+        associatedParts = product.getAllAssociatedParts();
+        tvAssociatedParts.setItems(associatedParts);
         colAssociatedPartsId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colAssociatedPartsName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colAssociatedPartsInventory.setCellValueFactory(new PropertyValueFactory<>("stock"));
